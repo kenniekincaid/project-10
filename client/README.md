@@ -1,3 +1,16 @@
+Full Stack App w/React & a ReST API
+by: Kendra Roberson
+
+GOAL: I would like to shoot for Exceeds but will accept Meets for the sake of time. If I do not Exceed expectations, I will return later to do so. Graduation is in 8 days, so it's crunch time!
+
+ABOUT PROJECT: This is the final project of the TechDegree Track! With this project, I am using React to create a client for my 9th ReST API project (a school database that is stored under the api folder in this project). This Full Stack Application will provide a way for users to administer a school database containing information about courses, for example, users can interact with the database by retrieving a list of courses, viewing detail for a specific course, as well as creating, updating and deleting courses in the database. In addition, user will are required to create an account and sign ni to  make changes to the database.
+
+Thank you for viewing my project!
+
+Kennie Kincaid
+(aka Kendra Roberson)
+
+INFO THAT DOWNLOADED w/README FILE:
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
