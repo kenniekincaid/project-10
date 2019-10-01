@@ -99,7 +99,7 @@ export default class CourseDetail extends Component {
     
     //FETCH COURSES
     getCourseDetail = async (id = this.props.match.params.id) => {
-        const url = 'http://localhost:5000/api/courses/';
+        const url = `/courses/`;
         const response = await this.props.context.data.api(url + id);
 
         if(response.status === 200) {
@@ -115,7 +115,7 @@ export default class CourseDetail extends Component {
 
     //DELETE COURSES
     deleteCourse = async (id = this.props.match.params.id) => {
-        const url = `http://localhost:5000/api/courses/${id}`;
+        const url = `/courses/${id}`;
         const { context } = this.props;
         const { emailAddress } = context.authenticatedUser;
         const password = context.userPassword;
@@ -132,7 +132,7 @@ export default class CourseDetail extends Component {
         } else if (response.status === 500) {
             this.props.history.push(`/error`);
         } else {
-            throw new Error();
+            // throw new Error();
         }
     }
 }

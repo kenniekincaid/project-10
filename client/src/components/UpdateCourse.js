@@ -127,7 +127,7 @@ export default class UpdateCourse extends Component {
 
     //UPDATE course.
     updateCourse = async (body, id) => {
-        const url = `http://localhost:5000/api/courses/${id}`;
+        const url = `/courses/${id}`;
 
         const { context } = this.props;
         const { emailAddress } = context.authenticatedUser;
@@ -154,13 +154,13 @@ export default class UpdateCourse extends Component {
 
     //FETCH course details.
     getCourseDetail = async (id = this.props.match.params.id) => {
-        const url = 'http://localhost:5000/api/courses/';
+        const url = `/courses/${id}`; //'http://localhost:5000/api/courses/'
         const { context } = this.props;
-        const response = await context.data.api(url + id);
+        const response = await context.data.api(url);
 
         if(response.status === 200) {
             response.json().then(course => {
-                if(context.authenticatedUser.id === course.userId) {
+                if(context.authenticatedUser.userId === course.userId) {
                     this.setState({...course}); 
                 } else {
                     this.props.history.push('/forbidden');
