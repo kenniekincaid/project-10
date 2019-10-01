@@ -11,9 +11,9 @@ const models = require('./models');
 const sequelize = models.sequelize; //declare and init model
 const { User, Course } = models;
 
+//CORS allows restricted resources on a webpage to be requested from one domain to another.
 const cors = require('cors');
 app.use(cors());
-
 
 //MIDDLEWARE, ENGINE SETUP, & ROUTES SECTION
 app.set('views', path.join(__dirname, 'views'));

@@ -43,13 +43,13 @@ router.post('/', [
   // Validations
   check('title')
     .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "title"'),
+    .withMessage('Please provide a value for "title".'),
   check('description')
     .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "description"'),
+    .withMessage('Please provide a value for "description".'),
   check('userId')
     .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "userId"')
+    .withMessage('Please provide a value for "userId".')
 ], authenticateUser, async (req, res, next)=>{
   const errors = validationResult(req);
 
@@ -75,7 +75,7 @@ router.post('/', [
       res.status(201).end();
     } catch (err) {
       if(err.name === 'SequelizeValidationError') {
-        res.status(400).json({message: "Hmm...Something's not right. Please fill out all the required fields."});
+        res.status(400).json({message: "Please complete all required fields."});
       } else {
         res.json({message: err.message});
       }
@@ -116,14 +116,14 @@ router.put('/:id', [
             if(user.id === course.userId) {
               course.update(req.body).then(() => res.status(204).json(course));
             } else {
-              res.status(403).json({message: 'Sorry, you are not authorized to edit this page.'});
+              res.status(403).json({message: 'Unathorized access not allowed.'});
             }
           } else {
-            res.status(404).json({message: "Oops! That ID does not exist. Try again."});
+            res.status(404).json({message: "That ID does not exist. Please sign up or try again!"});
           }
       }).catch(err => {
         if(err.name === 'SequelizeValidationError') {
-          res.status(400).json({message: "Hmm...Something's not right. Please fill out all the required fields."})
+          res.status(400).json({message: "Please complete all required fields."})
         } else {
           res.json({message: err.message});
         }
