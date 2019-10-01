@@ -107,6 +107,7 @@ router.put('/:id', [
     // Return the validation errors to the client.
     const err = new Error(errorMessages);
     err.status = 400;
+    err.errors = errorMessages;
     next(err);  
   } else {
       Course.findByPk(req.params.id)

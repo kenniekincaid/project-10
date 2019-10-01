@@ -8,7 +8,7 @@ export class Provider extends Component {
 
   state = {
     authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
-    userPassword: null
+    userPassword: Cookies.getJSON('userPassword') || null
   };
 
   constructor() {
@@ -48,6 +48,7 @@ export class Provider extends Component {
         expires: 1 // 1 day
       };
       Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
+      Cookies.set('userPassword', password, cookieOptions);
     }
     return user;
   }

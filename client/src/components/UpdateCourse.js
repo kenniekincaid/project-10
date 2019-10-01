@@ -31,6 +31,12 @@ export default class UpdateCourse extends Component {
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
                 <div>
+                    {errors && errors.length > 0 ? <h2 className="validation--errors--label">Validation errors</h2>:''}
+                    <div className="validation-errors">
+                    <ul>
+                        {(errors || []).map( (error, index) => <li key={index}>{error}</li>)}
+                    </ul>
+                </div>
                 <form onSubmit={this.submit}>
                     <div className="grid-66">
                         <div className="course--header">
@@ -108,7 +114,7 @@ export default class UpdateCourse extends Component {
             materialsNeeded,
         } = this.state;
 
-        const userId = context.authenticatedUser.id;
+        const userId = context.authenticatedUser.userId;
         const body = {
             title,
             description,

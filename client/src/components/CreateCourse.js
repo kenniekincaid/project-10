@@ -133,9 +133,10 @@ export default class CreateCourse extends Component {
         const response = await context.data.api(url, 'POST', body, true, {emailAddress, password});
 
         if (response.status === 201) {
-            const location = await response.headers.get('Location');
-            const id = location.replace('/api/courses/', '');
-            this.props.history.push(`/courses/${id}`);
+            const location = response.headers.get('Location');
+            // const id = location.replace('/api/courses/', '');
+            // this.props.history.push(`/courses/${id}`);
+            this.props.history.push(`/`);
         } else if (response.status === 400) {
             response.json().then(data => {
                 this.setState({
