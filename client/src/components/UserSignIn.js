@@ -51,9 +51,9 @@ export default class UserSignIn extends Component {
     );
   }
 
-  change = (event) => {
-    const value = event.target.value;
-    const fieldName = event.target.name;
+  change = (e) => {
+    const value = e.target.value;
+    const fieldName = e.target.name;
     const newState = {};
     newState[fieldName] = value;
 
@@ -62,7 +62,7 @@ export default class UserSignIn extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { emailAddress, password } = this.state;
 
     context.actions.signIn(emailAddress, password)

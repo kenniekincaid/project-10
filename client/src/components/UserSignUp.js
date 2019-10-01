@@ -8,14 +8,9 @@ export default class UserSignUp extends Component {
     lastName: '',
     emailAddress: '',
     password: '',
-    errors: [],
+    confirmPassword: '',
+    errors: []
   }
-
-  // componentDidMount(){
-  //   fetch('/api/users')
-  //   .then(res => res.json({name: }))
-  //   .then(name => this.setState({name}, () => console.log('User Signed up')));
-  // }
 
   render() {
     const {
@@ -23,7 +18,8 @@ export default class UserSignUp extends Component {
       lastName,
       emailAddress,
       password,
-      errors,
+      confirmPassword,
+      errors
     } = this.state;
 
     return (
@@ -39,21 +35,21 @@ export default class UserSignUp extends Component {
               <React.Fragment>
                 <input 
                   id="firstName" 
-                  firstName="firstName" 
+                  name="firstName" 
                   type="string"
                   value={firstName} 
                   onChange={this.change} 
                   placeholder="First Name" />
                 <input 
                   id="lastName" 
-                  lastName="lastName" 
+                  name="lastName" 
                   type="string"
                   value={lastName} 
                   onChange={this.change} 
                   placeholder="Last Name" />
                 <input 
                   id="emailAddress" 
-                  emailAddress="emailAddress" 
+                  name="emailAddress" 
                   type="text"
                   value={emailAddress} 
                   onChange={this.change} 
@@ -68,8 +64,8 @@ export default class UserSignUp extends Component {
                 <input 
                   id="confirmPassword" 
                   name="confirmPassword"
-                  type="confirmPassword"
-                  value={password}
+                  type='password'
+                  value={confirmPassword}
                   onChange={this.change} 
                   placeholder="Confirm Password" />
               </React.Fragment>
@@ -82,25 +78,26 @@ export default class UserSignUp extends Component {
     );
   }
 
-  change = (event) => {
-    const firstName = event.target.firstName;
-    const lastName = event.target.lastName;
-    const value = event.target.value;
+  //TODO: Get all fields with name attribute.... look at UserSignIn and follow that!!! 
+  change = (e) => {
 
-    this.setState(() => {
-      return {
-        [firstName]: value, [lastName]: value
-      };
-    });
+    const name = e.target.name;
+    const value = e.target.value;
+    const newState = {};
+    newState[name] = value;
+
+    this.setState(newState);
   }
 
-  submit = () => {
+  submit = (e) => {
+    // e.preventDefault();
     const { context } = this.props;
     const {
       firstName,
       lastName,
       emailAddress,
       password,
+      confirmPassword
     } = this.state;
 
     // Create user
@@ -108,25 +105,30 @@ export default class UserSignUp extends Component {
       firstName,
       lastName,
       emailAddress,
-      password,
+      password
     };
 
-    context.data.createUser(user)
-      .then( errors => {
-        if (errors.length) {
-          this.setState({ errors });
-        } else {
-          context.actions.signIn(firstName, lastName, emailAddress, password)
-            .then(() => {
-              this.props.history.push('/authenticated');    
-            });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.props.history.push('/error');
-      });
-  
+    if(password === confirmPassword){
+      context.data.createUser(user)
+        .then(errors => {
+          if (errors.length) {
+            this.setState({ errors });
+          } else {
+            context.actions.signIn(emailAddress, password)
+              .then(user => {
+                if(user === null)
+                  this.setState({
+                    errors: ["Sign-in failed. Please try again."],
+                  })
+                this.props.history.push('/');    
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.props.history.push('/error');
+        });
+    }
   }
 
   cancel = () => {

@@ -32,7 +32,7 @@ router.get('/:id', (req, res, next)=>{
     if (course) {
       res.status(200).json(course);
     } else {
-      res.status(404).json({message: "Page Not Found"});
+      res.status(404).json({message: "Page Not Found."});
     }
   }).catch(err => res.json({message: err.message}));
 });

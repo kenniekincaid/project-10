@@ -7,7 +7,8 @@ const Context = React.createContext();
 export class Provider extends Component {
 
   state = {
-    authenticatedUser: Cookies.getJSON('authenticatedUser') || null
+    authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
+    userPassword: null
   };
 
   constructor() {
@@ -16,9 +17,10 @@ export class Provider extends Component {
   }
 
   render() {
-    const { authenticatedUser } = this.state;
+    const { authenticatedUser, userPassword } = this.state;
     const value = {
       authenticatedUser,
+      userPassword,
       data: this.data,
       actions: {
         signIn: this.signIn,
@@ -39,6 +41,7 @@ export class Provider extends Component {
       this.setState(() => {
         return {
           authenticatedUser: user,
+          userPassword: password
         };
       });
       const cookieOptions = {
@@ -57,12 +60,7 @@ export class Provider extends Component {
 
 export const Consumer = Context.Consumer;
 
-/**
- * A higher-order component that wraps the provided component in a Context Consumer component.
- * @param {class} Component - A React component.
- * @returns {function} A higher-order component.
- */
-
+//Higher order component to wrap consumer
 export default function withContext(Component) {
   return function ContextComponent(props) {
     return (
