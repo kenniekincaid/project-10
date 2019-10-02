@@ -39,7 +39,7 @@ export default class CourseDetail extends Component {
 
     //RENDERING LOGIC: Checks for authenticated user w/matching userID and return the update and delete course buttons IF authenticated.
     render() {
-        const { course, errors } = this.state;
+        const { course } = this.state;
         const { authenticatedUser } = this.props.context;
         let authButton = '';
 

@@ -45,6 +45,7 @@ router.post('/', [
     // Return validation errors to the client.
     const err = new Error(errorMessages);
     err.status = 400;
+    err.errors = errorMessages;
     next(err);   
   }else{
     const user = new User ({

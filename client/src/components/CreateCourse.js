@@ -10,8 +10,7 @@ export default class CreateCourse extends Component {
     render () {
         const {
             title,
-            estimatedTime,
-            errors,
+            estimatedTime
         } = this.state;
 
         const { authenticatedUser } = this.props.context;
@@ -133,7 +132,7 @@ export default class CreateCourse extends Component {
         const response = await context.data.api(url, 'POST', body, true, {emailAddress, password});
 
         if (response.status === 201) {
-            const location = response.headers.get('Location');
+            // const location = response.headers.get('Location');
             // const id = location.replace('/api/courses/', '');
             // this.props.history.push(`/courses/${id}`);
             this.props.history.push(`/`);
